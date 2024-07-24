@@ -19,9 +19,3 @@ class BaseLLM(ABC):
         :return: Stream LLM response
         """
         pass
-
-class Foo(object): pass
-
-subclasses = BaseLLM.__subclasses__()
-for subclass in subclasses:
-    print(subclass.__name__)

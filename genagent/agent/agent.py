@@ -3,7 +3,7 @@ from typing import List, Optional, Union
 
 from pydantic import BaseModel, Field, ConfigDict
 
-from genagent.assistant.base_llm import BaseLLM
+from genagent.assistant import BaseLLM
 from genagent.assistant import llm_manager
 from genagent.common import prompt_constant
 from genagent.common.common_enum import InteractionTypeEnum, ResponseStatusEnum, SendToTypeEnum
@@ -84,7 +84,7 @@ class Agent(BaseModel):
                 return Message(content="The message is not sent to this agent, ignore !", send_from=self.name,
                                send_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                                status=ResponseStatusEnum.ERROR.value)
-            history_messages = self.short_memory.get_memory()
+            history_messages = self.short_memory.load()
             history_messages_content = [message.content for message in history_messages]
             if self.description is not None:
                 history_messages_content.insert(0, self.description)

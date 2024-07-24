@@ -1,15 +1,10 @@
 from typing import List
-
 from openai import OpenAI
 
-from genagent.assistant.base_llm import BaseLLM, Foo
+from genagent.assistant.base_llm import BaseLLM
 from genagent.assistant.llm_config import LLMConfig
 from genagent.assistant.llm_annotation import register_llm
 from genagent.common.common_enum import LLMProviderEnum
-
-class Bar(Foo): pass
-
-
 
 @register_llm(LLMProviderEnum.OPENAI)
 class OpenAILLM(BaseLLM):
@@ -51,4 +46,3 @@ class OpenAILLM(BaseLLM):
             model_answer_messages.append(chunk_message)  # save the message
             yield chunk_message
 
-print([cls.__name__ for cls in BaseLLM.__subclasses__()])
