@@ -5,37 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="598f9cac-ae81-405a-8d39-085221fd194d" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/GenAgent.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/actions/BaseAction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/actions/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/agent/BaseAgent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/agent/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/assistant/BaseLLM.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/assistant/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/group/BaseGroup.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/group/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/memory/LongMemory.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/memory/Memory.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/memory/Message.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/memory/ShortMemory.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/memory/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/rag/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/tool/BaseTool.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/tool/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/utils/storages/BaseStorage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/utils/storages/JsonStorage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/utils/storages/KeyValueStorage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genagent/utils/storages/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/genagent/agent/agent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/genagent/assistant/base_llm.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/genagent/assistant/llm_annotation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/genagent/assistant/llm_config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/genagent/assistant/llm_manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/genagent/assistant/open_ai_llm.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/genagent/common/common_enum.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/genagent/common/prompt_constant.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/genagent/memory/long_memory.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/genagent/memory/short_memory.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/genagent/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/genagent/test2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genagent/actions/BaseAction.py" beforeDir="false" afterPath="$PROJECT_DIR$/genagent/actions/base_action.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genagent/agent/BaseAgent.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/genagent/assistant/BaseLLM.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/genagent/assistant/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/genagent/assistant/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genagent/group/BaseGroup.py" beforeDir="false" afterPath="$PROJECT_DIR$/genagent/group/group.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genagent/memory/LongMemory.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/genagent/memory/Memory.py" beforeDir="false" afterPath="$PROJECT_DIR$/genagent/memory/memory.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genagent/memory/Message.py" beforeDir="false" afterPath="$PROJECT_DIR$/genagent/memory/message.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genagent/memory/ShortMemory.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/genagent/tool/BaseTool.py" beforeDir="false" afterPath="$PROJECT_DIR$/genagent/tool/base_tool.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genagent/utils/storages/BaseStorage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/genagent/utils/storages/JsonStorage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/genagent/utils/storages/KeyValueStorage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/genagent/utils/storages/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/genagent/common/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +49,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;948462448&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:948462448/GenAgent.git&quot;,
+    &quot;accountId&quot;: &quot;6ed41ef3-81d7-466f-ae41-614090de712c&quot;
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/.venv/lib/python3.9/site-packages/pydantic/fields.py" root0="SKIP_INSPECTION" />
   </component>
@@ -66,27 +75,58 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/liushiyu/workspace/GenAgent&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Python.base_llm.executor": "Debug",
+    "Python.open_ai_llm.executor": "Run",
+    "Python.test.executor": "Run",
+    "Python.test2.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/Users/songlei/workspace/GenAgent",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/genagent/assistant" />
+      <recent name="$PROJECT_DIR$/genagent/common/annitations" />
+    </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.open_ai_llm">
+    <configuration name="base_llm" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GenAgent" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/genagent/assistant" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/genagent/assistant/base_llm.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="GenAgent" />
       <option name="ENV_FILES" value="" />
@@ -110,14 +150,83 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.18034.82" />
-        <option value="bundled-python-sdk-975db3bf15a3-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.18034.82" />
-      </set>
-    </attachedChunks>
+    <configuration name="open_ai_llm" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GenAgent" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/genagent/assistant" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/genagent/assistant/open_ai_llm.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GenAgent" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/genagent" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/genagent/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GenAgent" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/genagent" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/genagent/test2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.open_ai_llm" />
+        <item itemvalue="Python.test2" />
+        <item itemvalue="Python.base_llm" />
+        <item itemvalue="Python.test" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -131,6 +240,9 @@
       <workItem from="1721439534586" duration="457000" />
       <workItem from="1721458044322" duration="8104000" />
       <workItem from="1721643543927" duration="8034000" />
+      <workItem from="1721698569658" duration="41425000" />
+      <workItem from="1721808412614" duration="14000" />
+      <workItem from="1721808437898" duration="10044000" />
     </task>
     <servers />
   </component>
@@ -148,7 +260,23 @@
           <line>8</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/genagent/test2.py</url>
+          <line>3</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/genagent/assistant/base_llm.py</url>
+          <line>25</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/GenAgent$base_llm.coverage" NAME="base_llm 覆盖结果" MODIFIED="1721820091592" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/genagent/assistant" />
+    <SUITE FILE_PATH="coverage/GenAgent$test2.coverage" NAME="test2 覆盖结果" MODIFIED="1721820309377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/genagent" />
+    <SUITE FILE_PATH="coverage/GenAgent$open_ai_llm.coverage" NAME="open_ai_llm 覆盖结果" MODIFIED="1721820371562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/genagent/assistant" />
+    <SUITE FILE_PATH="coverage/GenAgent$test.coverage" NAME="test 覆盖结果" MODIFIED="1721820007339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/genagent" />
   </component>
 </project>

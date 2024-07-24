@@ -1,7 +1,7 @@
-from abc import ABC
+from pydantic import BaseModel
 
 
-class BaseTool(ABC):
+class BaseTool(BaseModel):
 
     def get_function_desc(self):
         pass
