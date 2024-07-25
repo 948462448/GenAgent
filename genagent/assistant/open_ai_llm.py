@@ -6,6 +6,7 @@ from genagent.assistant.llm_config import LLMConfig
 from genagent.assistant.llm_annotation import register_llm
 from genagent.common.common_enum import LLMProviderEnum
 
+
 @register_llm(LLMProviderEnum.OPENAI)
 class OpenAILLM(BaseLLM):
     """
@@ -45,4 +46,3 @@ class OpenAILLM(BaseLLM):
             chunk_message = chunk.choices[0].delta.content  # extract the message
             model_answer_messages.append(chunk_message)  # save the message
             yield chunk_message
-

@@ -7,6 +7,7 @@
 # class Bar(Foo): pass
 # class Baz(Foo): pass
 # class Bing(Bar): pass
-from genagent.assistant import BaseLLM
+from genagent.tool import tool_manager
+manager = tool_manager.TOOL_MANAGER
 
-print([cls.__name__ for cls in BaseLLM.__subclasses__()])
+print(manager)
