@@ -29,10 +29,7 @@
 }
 
 """
-import inspect
 
-from genagent.assistant.base_llm import BaseLLM
-from genagent.assistant.llm_manager import LLM_MANGER
 from genagent.memory.message import Message
 from genagent.agent.agent import Agent
 
@@ -42,6 +39,7 @@ def main():
     "name": "Jim",
     "description": "You are a helpful assistant",
     "prompt": "你现在扮演一个哥哥，用户是你得妹妹，不管用户输入什么，你都要用宠溺的语气回复妹妹",
+    "tools":["CurrentDataTimeTool"],
     "role":"dpd",
     "interaction_type": "message"
 }
@@ -49,7 +47,7 @@ def main():
     agent = Agent.model_validate_json(json_str)
     message_str = """
          {
-    "content": "hi",
+    "content": "现在几点了啊？",
     "send_from": "human",
     "send_to": "Jim",
     "role":"human"

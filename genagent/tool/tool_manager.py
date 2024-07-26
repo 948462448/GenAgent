@@ -3,7 +3,7 @@ from typing import List, Dict
 from genagent.tool.base_tool import BaseTool, Parameters
 
 
-class ToolManagerItem:
+class Tool:
     def __init__(self, function_name: str, function_desc: dict, function_cls: BaseTool):
         self.function_name: str = function_name
         self.function_desc: dict = function_desc
@@ -21,16 +21,16 @@ class ToolManagerItem:
 
 class ToolManager:
     def __init__(self):
-        self.tools = {}
+        self.tools: Dict[str, Tool] = {}
 
     def register_tool(self, tool: type):
         tool_instance = tool()
         tool_name = tool_instance.__class__.__name__
         parameters = tool_instance.do_get_function_param()
         function_desc = ToolManager.__format_function_desc(parameters, tool_name, tool_instance.description)
-        self.tools[tool_name] = ToolManagerItem(function_name=tool_name, function_desc=function_desc, function_cls=tool_instance)
+        self.tools[tool_name] = Tool(function_name=tool_name, function_desc=function_desc, function_cls=tool_instance)
 
-    def get_tool(self, tool_name: str) -> ToolManagerItem:
+    def get_tool(self, tool_name: str) -> Tool:
         return self.tools[tool_name]
 
     def __str__(self):

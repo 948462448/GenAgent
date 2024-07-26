@@ -24,7 +24,7 @@ def create_llm_instance(config: Optional[LLMConfig]) -> BaseLLM:
     if config is None:
         return LLM_MANGER.get_llm(llm_type=LLMProviderEnum.OPENAI)(DefaultLLMConfig())
 
-    return LLM_MANGER.get_llm(llm_type=config.model_provider)(config)
+    return LLM_MANGER.get_llm(llm_type=config.llm_provider)(config)
 
 
 # Registry instance

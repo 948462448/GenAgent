@@ -16,7 +16,7 @@ class Message(BaseModel):
     # Sender
     send_from: str = Field(default="")
     # Receiver agent_name
-    send_to: str = Field(default="")
+    send_to: Optional[str] = Field(default="")
     # Send Time
     send_time: Optional[str] = Field(default=None)
     # response status
@@ -41,6 +41,12 @@ class Message(BaseModel):
     @staticmethod
     def do_format_system_message(content: str, name: str) -> dict:
         return {"role": "system", "content": content, "name": name}
+
+    @staticmethod
+    def do_format_user_message(content: str, name: Optional[str]) -> dict:
+        if name is None:
+            return {"role": "user", "content": content}
+        return {"role": "user", "content": content, "name": name}
 
     @staticmethod
     def do_format_agent_message(content: str, name: str) -> dict:

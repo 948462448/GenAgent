@@ -27,5 +27,5 @@ class BaseTool(ABC):
         pass
 
     @abstractmethod
-    def exec(self, **params):
+    def exec(self, **params) -> dict:
         pass
