@@ -11,13 +11,17 @@ from genagent.common.common_enum import InteractionTypeEnum, ResponseStatusEnum,
 from genagent.memory.long_memory import LongMemory
 from genagent.memory.message import Message
 from genagent.memory.short_memory import ShortMemory
-from genagent.tool.base_tool import BaseTool
 from genagent.tool import tool_manager
 
 
 class ExtendedParams(BaseModel):
     prompt_config: dict = Field(default=None)
     max_react_num_of_cycle: int = Field(default=5)
+
+
+class AgentTeam(BaseModel):
+    team_name: str = Field(default="")
+    team_role: str = Field(default="")
 
 
 class Agent(BaseModel):
@@ -30,8 +34,8 @@ class Agent(BaseModel):
     system_prompt: str = Field(default="")
     # prompt
     prompt: str = Field(default="")
-    # agent role
-    role: str = Field(default="")
+    # agent team
+    team: List[AgentTeam] = Field(default=None)
     # interaction type：human input / bot input
     interaction_type: str = Field(default=InteractionTypeEnum.MESSAGE.model_name)
     # agent short memory
@@ -58,7 +62,10 @@ class Agent(BaseModel):
             3、持久化到长期记忆
     """
 
-    def exec(self, message: Message) -> Message:
+    def exec_agent(self, message: Message) -> Message:
+        """
+        Single-Agent Execution: Direct execution without consideration of multi-agent coordination.
+        """
         if self.extended_params.prompt_config is not None and len(self.extended_params.prompt_config) > 0:
             prompt_extend_config = self.extended_params.prompt_config["prompt"]
             self.prompt.format(**prompt_extend_config)

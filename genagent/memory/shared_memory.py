@@ -5,17 +5,14 @@ from pydantic import Field
 
 from genagent.memory.memory import Memory
 from genagent.memory.message import Message
+from queue import Queue
 
 
-class ShortMemory(Memory):
-    """
-    Short-term memory in computing refers to data stored in the system's main memory (RAM),
-    which holds information temporarily for immediate access by the CPU.
-    """
-    # Longest memory limit
-    memory_max_size: int = Field(default=100)
+class SharedMemory(Memory):
 
-    # todo LRU 淘汰记忆
+    shared_memory_max_size: int = Field(default=100)
+
+    new_message_queue: Queue = Field(default=Queue(maxsize=shared_memory_max_size))
 
     def save(self, message: Message) -> None:
         self.message_list.append(message)
