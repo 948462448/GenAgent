@@ -61,8 +61,14 @@ class Agent(BaseModel):
         todo list
             3、持久化到长期记忆
     """
+    def exec_group_agent(self, history_messages: List[Message], message: Message) -> Message:
+        """
+        Group-Agent Execution: Cooperative Execution with Other Agents
+        """
 
-    def exec_agent(self, message: Message) -> Message:
+        pass
+
+    def exec_single_agent(self, message: Message) -> Message:
         """
         Single-Agent Execution: Direct execution without consideration of multi-agent coordination.
         """

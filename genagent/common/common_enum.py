@@ -49,3 +49,13 @@ class SendToTypeEnum(Enum):
     ALL_MUTUALLY_EXCLUSIVE = "all_mutually_exclusive"
     ALL_NOT_MUTUALLY_EXCLUSIVE = "all_not_mutually_exclusive"
 
+
+class GroupExecTypeEnum(Enum):
+    """
+    Types of Multi-Agent collaboration
+    """
+    REACT = "react"  # think -> act -> think -> act
+    ORDER = "order"  # sequential execution
+    CHAIN = "chain"  # specifying the next execution point
+    PLAIN = "plain"  # LLM breaking down subtasks
+    GRAPH = "graph"  # graph execution
