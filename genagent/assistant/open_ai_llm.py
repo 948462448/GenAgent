@@ -30,6 +30,9 @@ class OpenAILLM(BaseLLM):
         response = self.client.chat.completions.create(
             model=self.model,
             messages=messages,
+            presence_penalty=0.8,
+            frequency_penalty=0.8,
+            top_p=0.3,
             stream=False
         )
         return response.choices[0].message.content

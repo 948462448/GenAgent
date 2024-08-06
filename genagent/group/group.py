@@ -19,7 +19,7 @@ class Group(BaseModel):
 
     description: str = Field(default="")
 
-    agents: Dict[str, Agent] = Field(default_factory=Dict)
+    agents: Dict[str, Agent] = Field(default={})
 
     execType: GroupExecTypeEnum = Field(default=GroupExecTypeEnum.REACT)  # ReAct / Order / Chain / Plan / Graph
 
@@ -43,8 +43,8 @@ class Group(BaseModel):
             return
         group_exec_cls = group_exec_manager.GROUP_EXEC_MANAGER.get_exec_cls(exec_type=self.execType)
         if group_exec_cls:
-            group_exec_cls.__init__(agents=self.agents, shard_memory=self.shard_memory, llm_config=self.llm_config)
-            group_exec_cls.exec(message=message, maximum_dialog_rounds=self.maximum_dialog_rounds)
+            group_exec_instance = group_exec_cls(agents=self.agents, llm_config=self.llm_config, shard_memory=self.shard_memory)
+            group_exec_instance.exec(message=message, maximum_dialog_rounds=self.maximum_dialog_rounds)
         else:
             raise ServerException(error_enum=ErrorCode.GROUP_EXEC_TYPE_NOT_SUPPORT_ERROR)
 
@@ -52,4 +52,4 @@ class Group(BaseModel):
         self.agents[agent.name] = agent
 
     def __check_agent_config(self) -> bool:
-        pass
+        return True

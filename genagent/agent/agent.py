@@ -7,7 +7,8 @@ from pydantic import BaseModel, Field, ConfigDict
 from genagent.assistant import LLMConfig, BaseLLM
 from genagent.assistant import llm_manager
 from genagent.assistant.llm_config import DefaultLLMConfig
-from genagent.common.common_enum import InteractionTypeEnum, ResponseStatusEnum, SendToTypeEnum, LLMProviderEnum
+from genagent.common.common_enum import InteractionTypeEnum, ResponseStatusEnum, SendToTypeEnum, LLMProviderEnum, \
+    AgentExecModeEnum
 from genagent.memory.long_memory import LongMemory
 from genagent.memory.message import Message
 from genagent.memory.short_memory import ShortMemory
@@ -50,8 +51,12 @@ class Agent(BaseModel):
     extended_params: ExtendedParams = Field(default_factory=ExtendedParams)
     # llm config
     llm_config: Optional[LLMConfig] = Field(default_factory=DefaultLLMConfig)
-
+    # llm
     llm: Optional[BaseLLM] = Field(default=None)
+    # mode
+    mode: str = Field(default=AgentExecModeEnum.SIGNAL.value)
+    # next agent name
+    next: str = Field(default="")
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -61,23 +66,32 @@ class Agent(BaseModel):
         todo list
             3、持久化到长期记忆
     """
-    def exec_group_agent(self, history_messages: List[Message], message: Message) -> Message:
-        """
-        Group-Agent Execution: Cooperative Execution with Other Agents
-        """
 
-        pass
-
-    def exec_single_agent(self, message: Message) -> Message:
+    def exec(self, message: Message, **kwargs) -> Message:
         """
         Single-Agent Execution: Direct execution without consideration of multi-agent coordination.
         """
+        send_from_messages = kwargs.get("send_from_messages", [])
         if self.extended_params.prompt_config is not None and len(self.extended_params.prompt_config) > 0:
             prompt_extend_config = self.extended_params.prompt_config["prompt"]
-            self.prompt.format(**prompt_extend_config)
+            if self.prompt is not None:
+                self.prompt.format(**prompt_extend_config)
         self.short_memory.save(message)
-        response = self.__ask(message)
+        history_message = self.short_memory.load()
+        for message in history_message:
+            self.history_messages.append({"name": message.send_from,"content": message.content, "role": "assistant" if message.role == "assistant" else "user"})
+        if self.mode == AgentExecModeEnum.MULTI.value:
+            send_from_history_list = []
+            for send_from_message in send_from_messages:
+                send_from_message_dict = {"name": send_from_message.send_from, "content": send_from_message.content}
+                send_from_history_list.append(send_from_message_dict)
+            if len(send_from_history_list) > 0:
+                self.history_messages.append(Message.do_format_multi_agent_history(send_from_history_list, self.name))
+        response = self.__ask(message=message)
         self.short_memory.save(response)
+        response.role = ""
+        # clear history messages
+        self.history_messages = []
         return response
 
     def __ask(self, message: Union[None, Message]) -> 'Message':
@@ -97,7 +111,7 @@ class Agent(BaseModel):
                 return check_message
             if self.system_prompt is not None:
                 self.history_messages.insert(0, Message.do_format_system_message(self.system_prompt, self.name))
-            return self.__do_act(message)
+            return self.__do_act(message=message)
 
     def __do_act(self, message: Message) -> 'Message':
         # By default, the system operates in React mode, whereas the implementation of the Order mode is yet to be added
@@ -112,13 +126,13 @@ class Agent(BaseModel):
                     if curr_cycle == 0:
                         # On the first loop iteration, no tool match was found.
                         response = self.llm.request(self.history_messages)
-                        return self.__do_init_message(content=response, send_to=message.send_from, is_success=True)
+                        return self.__do_init_message(content=response, send_to=self.next, is_success=True, role="assistant")
                     else:
                         # If it's not the first time, and it's determined that no tool is needed, then the most recent
                         # response from the latest historical conversation should suffice.
                         last_assistant_answer = self.history_messages[-1]
                         return self.__do_init_message(content=last_assistant_answer["content"],
-                                                      send_to=message.send_from, is_success=True)
+                                                      send_to=message.send_from, is_success=True, role="assistant")
                 self.__do_execute_tool(tools)
                 response = self.llm.request(self.history_messages)
                 self.history_messages.append(Message.do_format_agent_message(response, self.name))
@@ -127,7 +141,7 @@ class Agent(BaseModel):
             new_content = message.do_format_message(self.prompt)
             self.history_messages.append(new_content)
             response = self.llm.request(self.history_messages)
-            return self.__do_init_message(content=response, send_to=message.send_from, is_success=True)
+            return self.__do_init_message(content=response, send_to=self.next, is_success=True, role="assistant")
 
     def __do_react_with_tool(self) -> 'Optional[List[Dict]]':
         """
@@ -169,17 +183,17 @@ class Agent(BaseModel):
     def __check_message_relevant(self, message: Message) -> Tuple[bool, Optional[Message]]:
         if message is None:
             return False, self.__do_init_message(content="The input message is empty, please re-enter.",
-                                                 send_to=None, is_success=False)
+                                                 send_to=None, is_success=False, role="assistant")
         if message.send_to != self.name and message.send_to != SendToTypeEnum.ALL.value:
             return False, self.__do_init_message(content="The message is not sent to this agent, ignore !",
-                                                 send_to=message.send_from, is_success=False)
+                                                 send_to=message.send_from, is_success=False, role="assistant")
         return True, None
 
-    def __do_init_message(self, content: str, send_to: Optional[str], is_success: bool) -> 'Message':
+    def __do_init_message(self, content: str, send_to: Optional[str], is_success: bool, role: str) -> 'Message':
         return Message(content=content, send_from=self.name, send_to=send_to,
                        send_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                        status=ResponseStatusEnum.SUCCESS.value if is_success else ResponseStatusEnum.ERROR.value,
-                       role=self.role)
+                       role=role)
 
     def to_dict(self):
         pass

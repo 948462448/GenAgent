@@ -59,3 +59,11 @@ class GroupExecTypeEnum(Enum):
     CHAIN = "chain"  # specifying the next execution point
     PLAIN = "plain"  # LLM breaking down subtasks
     GRAPH = "graph"  # graph execution
+
+
+class AgentExecModeEnum(Enum):
+    """
+    AgentExecModeEnum is an enum class that defines the different types of agent execution modes that can be used by an agent.
+    """
+    SIGNAL = "signal"
+    MULTI = "multi"

@@ -16,13 +16,16 @@ class GroupExecReact(BaseGroupExec):
 
     def exec(self, message: Message, maximum_dialog_rounds: int = 10) -> None:
         curr_round = 0
+        self.shard_memory.save(message)
+        print(f'\n---------- {message.send_from} ----------')
+        print(f'{message.content}')
         while curr_round < maximum_dialog_rounds:
-            self.shard_memory_list.new_message_queue.get()
-            _react_message = self._react(message=message)
+            new_message = self.shard_memory.new_message_queue.get()
+            _react_message = self._react(message=new_message)
+            print(f'---------- {_react_message.send_from} ----------')
+            print(f'{_react_message.content}')
             if _react_message is not None:
-                self.shard_memory_list.message_list.append(_react_message)
-                self.shard_memory_list.message_dict_group[_react_message.send_from].append(_react_message)
-                self.shard_memory_list.new_message_queue.put(_react_message)
+                self.shard_memory.save(_react_message)
             else:
                 print("---------- Complete the conversation ----------")
                 return
@@ -33,21 +36,20 @@ class GroupExecReact(BaseGroupExec):
         if not self.agents:
             raise ServerException(error_enum=ErrorCode.GROUP_AGENTS_EMPTY_ERROR)
         send_to = message.send_to
-        send_from_messages = self.shard_memory_list.message_dict_group.get(message.send_from)
+        send_from_messages = self.shard_memory.message_dict_group.get(message.send_from)
         if send_to:
             if send_to in self.agents.keys():
-                message = self.agents.get(send_to).exec_group_agent(history_messages=send_from_messages,
-                                                                    message=message)
+                message = self.agents.get(send_to).exec(send_from_messages=send_from_messages, message=message)
                 return message
             else:
                 raise ServerException(error_enum=ErrorCode.GROUP_AGENTS_NOT_FOUNT_ERROR)
         else:
-            agent_desc_list = [{"agent_name": agent.name, "desc": agent.description} for agent in self.agents]
+            agent_desc_list = [{"agent_name": agent.name, "desc": agent.description} for agent_name, agent in self.agents.items()]
             history_messages_list = [message.do_format_message(prompt=None) for message in
-                                     self.shard_memory_list.message_list]
+                                     self.shard_memory.message_list]
             new_message = message.do_format_message(prompt=None)
-            group_choice_prompt = prompt_constant.GROUP_CHOICE_AGENT_PROMPT_CN.format(agents=agent_desc_list,
-                                                                                      history_messages=history_messages_list,
+            group_choice_prompt = prompt_constant.GROUP_CHOICE_AGENT_PROMPT_CN.format(agents=json.dumps(agent_desc_list, ensure_ascii=False),
+                                                                                      history_messages=json.dumps(history_messages_list, ensure_ascii=False),
                                                                                       new_message=new_message)
             choice_messages = [
                 Message.do_format_system_message(content=prompt_constant.GROUP_CHOICE_SYSTEM_PROMPT_CN, name="system"),
@@ -57,6 +59,7 @@ class GroupExecReact(BaseGroupExec):
             next_agent_name = next_agent_dict.get("agent_name")
             if "None" == next_agent_name:
                 return None
-            new_answer_message = self.agents.get(next_agent_name).exec_group_agent(history_messages=send_from_messages,
-                                                                                   message=message)
+            message.send_to=next_agent_name
+            new_answer_message = self.agents.get(next_agent_name).exec(send_from_messages=send_from_messages,
+                                                                       message=message)
             return new_answer_message

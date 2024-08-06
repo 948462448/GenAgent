@@ -11,7 +11,7 @@ class BaseGroupExec(ABC):
 
     def __init__(self, **kwargs):
         self.llm: BaseLLM = llm_manager.create_llm_instance(kwargs.get("llm_config", None))
-        self.shard_memory_list: SharedMemory = kwargs.get("shard_memory", SharedMemory())
+        self.shard_memory: SharedMemory = kwargs.get("shard_memory", SharedMemory())
         self.agents: Dict[str, Agent] = kwargs.get("agents", {})
 
     @abstractmethod

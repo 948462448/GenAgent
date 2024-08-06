@@ -54,7 +54,7 @@ def main():
 }
     """
     message = Message.model_validate_json(message_str)
-    response = agent.exec(message)
+    response = agent.exec(message=message)
     print(response)
 
 

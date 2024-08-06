@@ -1,5 +1,5 @@
 import json
-from typing import Optional, Union, Dict
+from typing import Optional, Union, Dict, List
 
 from pydantic import BaseModel, Field, ConfigDict
 
@@ -31,11 +31,10 @@ class Message(BaseModel):
         :param prompt: prompt
         :return: format message
         """
-        chat = ""
         if prompt is None or prompt == "":
-            chat = self.__do_format_msg_without_prompt(chat)
+            chat = self.__do_format_msg_without_prompt()
         else:
-            chat = self.__do_format_msg_with_prompt(chat, prompt)
+            chat = self.__do_format_msg_with_prompt(prompt)
         return chat
 
     @staticmethod
@@ -53,10 +52,18 @@ class Message(BaseModel):
         return {"role": "assistant", "content": content, "name": name}
 
     @staticmethod
+    def do_format_multi_agent_history(content: Union[str, List[Dict]], name: str) -> dict:
+        if isinstance(content, str):
+            return {"role": "user", "content": prompt_constant.GROUP_AGENT_PROMPT_CN.format(history_messages=content), "name": name}
+        else:
+            content_str = prompt_constant.GROUP_AGENT_PROMPT_CN.format(history_messages=json.dumps(content));
+            return {"role": "user", "content": content_str, "name": name}
+
+    @staticmethod
     def __do_check_placeholder_existence(prompt: str, placeholder: str):
         return f'{{{placeholder}}}' in prompt
 
-    def __do_format_msg_with_prompt(self, chat, prompt):
+    def __do_format_msg_with_prompt(self, prompt: Union[str, dict]):
         if isinstance(self.content, str):
             new_content = prompt + prompt_constant.USER_ASK_PROMPT_CN.format(content=self.content)
             chat = {"role": "user", "content": new_content, "name": self.send_from}
@@ -74,7 +81,8 @@ class Message(BaseModel):
             chat = {"role": "user", "content": new_content, "name": self.send_from}
         return chat
 
-    def __do_format_msg_without_prompt(self, chat):
+    def __do_format_msg_without_prompt(self):
+        chat = {}
         if isinstance(self.content, str):
             chat = {"role": "user", "content": self.content, "name": self.send_from}
         elif isinstance(self.content, dict):
