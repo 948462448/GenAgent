@@ -12,17 +12,17 @@ class LLMManager:
     def __init__(self):
         self.llm_register = {}
 
-    def register(self, llm_type: LLMProviderEnum, llm_class):
+    def register(self, llm_type: str, llm_class):
         self.llm_register[llm_type] = llm_class
 
-    def get_llm(self, llm_type: LLMProviderEnum):
+    def get_llm(self, llm_type: str):
         return self.llm_register.get(llm_type)
 
 
 def create_llm_instance(config: Optional[LLMConfig]) -> BaseLLM:
     """get the default llm provider"""
     if config is None:
-        return LLM_MANGER.get_llm(llm_type=LLMProviderEnum.OPENAI)(DefaultLLMConfig())
+        return LLM_MANGER.get_llm(llm_type=LLMProviderEnum.OPENAI.value)(DefaultLLMConfig())
 
     return LLM_MANGER.get_llm(llm_type=config.llm_provider)(config)
 

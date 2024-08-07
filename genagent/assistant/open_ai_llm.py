@@ -1,6 +1,6 @@
 import json
 from typing import List, Any, Union
-from openai import OpenAI
+from openai import OpenAI, NOT_GIVEN
 from openai.types.chat import ChatCompletionMessage, ChatCompletionMessageToolCall
 
 from genagent.assistant.base_llm import BaseLLM
@@ -20,6 +20,7 @@ class OpenAILLM(BaseLLM):
     def __init__(self, config: LLMConfig):
         self.client = OpenAI(api_key=config.openai_api_key, base_url=config.openai_base_url)
         self.model = config.model
+        self.config = config
 
     def request(self, messages: List) -> str:
         """
@@ -30,11 +31,13 @@ class OpenAILLM(BaseLLM):
         response = self.client.chat.completions.create(
             model=self.model,
             messages=messages,
-            presence_penalty=0.8,
-            frequency_penalty=0.8,
-            top_p=0.3,
+            presence_penalty=self.config.presence_penalty,
+            frequency_penalty=self.config.frequency_penalty,
+            temperature=self.config.temperature,
+            response_format={'type': 'json_object'} if self.config.is_json else NOT_GIVEN,
             stream=False
         )
+
         return response.choices[0].message.content
 
     def request_stream(self, messages: List) -> str:

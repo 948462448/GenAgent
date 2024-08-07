@@ -77,9 +77,6 @@ class Agent(BaseModel):
             if self.prompt is not None:
                 self.prompt.format(**prompt_extend_config)
         self.short_memory.save(message)
-        history_message = self.short_memory.load()
-        for message in history_message:
-            self.history_messages.append({"name": message.send_from,"content": message.content, "role": "assistant" if message.role == "assistant" else "user"})
         if self.mode == AgentExecModeEnum.MULTI.value:
             send_from_history_list = []
             for send_from_message in send_from_messages:
@@ -87,6 +84,11 @@ class Agent(BaseModel):
                 send_from_history_list.append(send_from_message_dict)
             if len(send_from_history_list) > 0:
                 self.history_messages.append(Message.do_format_multi_agent_history(send_from_history_list, self.name))
+        else:
+            history_message = self.short_memory.load()
+            for message in history_message:
+                self.history_messages.append({"name": message.send_from, "content": message.content,
+                                              "role": "assistant" if message.role == "assistant" else "user"})
         response = self.__ask(message=message)
         self.short_memory.save(response)
         response.role = ""
@@ -109,7 +111,7 @@ class Agent(BaseModel):
             check_result, check_message = self.__check_message_relevant(message)
             if not check_result:
                 return check_message
-            if self.system_prompt is not None:
+            if self.system_prompt is not None or self.system_prompt != "":
                 self.history_messages.insert(0, Message.do_format_system_message(self.system_prompt, self.name))
             return self.__do_act(message=message)
 
@@ -126,7 +128,8 @@ class Agent(BaseModel):
                     if curr_cycle == 0:
                         # On the first loop iteration, no tool match was found.
                         response = self.llm.request(self.history_messages)
-                        return self.__do_init_message(content=response, send_to=self.next, is_success=True, role="assistant")
+                        return self.__do_init_message(content=response, send_to=self.next, is_success=True,
+                                                      role="assistant")
                     else:
                         # If it's not the first time, and it's determined that no tool is needed, then the most recent
                         # response from the latest historical conversation should suffice.

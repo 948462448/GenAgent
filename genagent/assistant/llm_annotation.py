@@ -6,7 +6,7 @@ def register_llm(llm_type: LLMProviderEnum):
     llm = llm_manager.LLM_MANGER
 
     def decorator(cls):
-        llm.register(llm_type, cls)
+        llm.register(llm_type.value, cls)
         return cls
 
     return decorator

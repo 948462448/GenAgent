@@ -37,10 +37,8 @@ GROUP_CHOICE_AGENT_PROMPT_CN = """
     你应该回答：
     {{"agent_name":"weather"}}
     --
-    如果你认为下一个agent的名字是weather，
-    那么你应该回答：{{"agent_name":"weather"}}, 如果您认为已经完成了目标，不需要去任何阶段，
+    请注意，答案只需要一个json字符串即可,且json中agent的值必须是agent列表中agent的名字，无需添加任何其他文字。 如果您认为已经完成了目标，不需要去任何阶段，
     请返回 {{"agent_name":"None"}}。 不要回答其他任何内容，不要在答案中添加任何其他信息。
-    返回的agent_name 应该在已经注册的agent列表中，不要返回杜撰的agent
     这段文本描述了一个多agent合作系统，要求用户基于历史对话记录选择下一步应使用那些agent处理最新消息。
     """
 GROUP_CHOICE_SYSTEM_PROMPT_CN = """

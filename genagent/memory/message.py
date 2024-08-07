@@ -54,9 +54,11 @@ class Message(BaseModel):
     @staticmethod
     def do_format_multi_agent_history(content: Union[str, List[Dict]], name: str) -> dict:
         if isinstance(content, str):
-            return {"role": "user", "content": prompt_constant.GROUP_AGENT_PROMPT_CN.format(history_messages=content), "name": name}
+            return {"role": "user", "content": prompt_constant.GROUP_AGENT_PROMPT_CN.format(history_messages=content),
+                    "name": name}
         else:
-            content_str = prompt_constant.GROUP_AGENT_PROMPT_CN.format(history_messages=json.dumps(content));
+            content_str = prompt_constant.GROUP_AGENT_PROMPT_CN.format(
+                history_messages=json.dumps(content, ensure_ascii=False))
             return {"role": "user", "content": content_str, "name": name}
 
     @staticmethod
